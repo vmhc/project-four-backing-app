@@ -16,9 +16,9 @@ import retrofit2.Response;
 public class MainViewModel extends ViewModel {
 
     private IRecipe iRecipe = ClienteHttp.getIRecipe();
-    public IMain iMain;
+    IMain iMain;
 
-    public void obtainRecipe() {
+    void obtainRecipe() {
         iRecipe.getRecipe().enqueue(new Callback<ArrayList<Recipe>>() {
             @Override
             public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {

@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +37,7 @@ import static com.android.master.activity.RecipeDetailActivity.TYPE_STEP;
 public class DetailsRecipeFragment extends Fragment {
 
     private static final String ARG_TYPE = "ARG_TYPE";
-    public static final String ARG_INGREDIENTS = "ARG_INGREDIENTS";
+    private static final String ARG_INGREDIENTS = "ARG_INGREDIENTS";
     private static final String ARG_STEPS = "ARG_STEPS";
     public static final String ARG_EMPTY = "ARG_EMPTY";
 
@@ -59,10 +57,6 @@ public class DetailsRecipeFragment extends Fragment {
 
     private ArrayList<Ingredient> ingredients;
     private Step step;
-
-    private IngredientAdapter ingredientAdapter;
-
-    private OnFragmentInteractionListener mListener;
 
     SimpleExoPlayer player;
 
@@ -106,12 +100,13 @@ public class DetailsRecipeFragment extends Fragment {
     }
 
     private void initUI() {
+        Context context = requireContext();
 
         if (ingredients != null) {
             cl_general_ingredients.setVisibility(View.VISIBLE);
             cl_general_steps.setVisibility(View.GONE);
             rv_ingredients.setHasFixedSize(true);
-            ingredientAdapter = new IngredientAdapter(getContext(), ingredients);
+            IngredientAdapter ingredientAdapter = new IngredientAdapter(context, ingredients);
             rv_ingredients.setAdapter(ingredientAdapter);
         } else if (step != null) {
             cl_general_ingredients.setVisibility(View.GONE);
@@ -119,12 +114,12 @@ public class DetailsRecipeFragment extends Fragment {
             fragmentDetailsStepInstructions.setText(step.getDescription());
 
             if (!step.getVideoURL().isEmpty()) {
-                player = ExoPlayerFactory.newSimpleInstance(getContext());
+                player = ExoPlayerFactory.newSimpleInstance(context);
                 fragmentDetailsMainPlayerView.setPlayer(player);
                 Uri mp4VideoUri = Uri.parse(step.getVideoURL());
                 // Produces DataSource instances through which media data is loaded.
-                DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getContext(),
-                        Util.getUserAgent(getContext(), getString(R.string.app_name)));
+                DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(context,
+                        Util.getUserAgent(context, getString(R.string.app_name)));
                 // This is the MediaSource representing the media to be played.
                 MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
                         .createMediaSource(mp4VideoUri);
@@ -139,30 +134,19 @@ public class DetailsRecipeFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
         if (player != null) {
             player.stop();
-            player.release();
         }
-
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onDestroy() {
+        super.onDestroy();
+        if (player != null) {
+            player.release();
         }
-    }
-
-
-    public interface OnFragmentInteractionListener {
-
-        void onFragmentInteraction(Uri uri);
 
     }
 }

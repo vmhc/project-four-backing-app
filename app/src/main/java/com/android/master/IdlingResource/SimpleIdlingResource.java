@@ -1,4 +1,4 @@
-package com.android.master.IdlingResource;
+package com.android.master.idlingresource;
 
 import androidx.annotation.Nullable;
 import androidx.test.espresso.IdlingResource;

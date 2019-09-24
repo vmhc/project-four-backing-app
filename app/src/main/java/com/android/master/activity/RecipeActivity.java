@@ -2,7 +2,6 @@ package com.android.master.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,23 +23,19 @@ import static com.android.master.activity.RecipeDetailActivity.TYPE_INGREDIENT;
 import static com.android.master.activity.RecipeDetailActivity.TYPE_STEP;
 import static com.android.master.fragment.DetailsRecipeFragment.ARG_EMPTY;
 
-public class RecipeActivity extends AppCompatActivity implements MasterRecipeFragment.OnFragmentInteractionListener, DetailsRecipeFragment.OnFragmentInteractionListener, IMasterCallbacks {
+public class RecipeActivity extends AppCompatActivity implements IMasterCallbacks {
 
     public static final String KEY_RECIPE = "KEY_RECIPE";
-    private RecipeViewModel vm;
-    private IMasterCallbacks iMasterCallbacks;
-    private Toolbar toolbar;
     private Boolean isMasterDetail = false;
 
     @Override
     protected void onCreate(Bundle arg) {
         super.onCreate(arg);
-        iMasterCallbacks = this;
         setContentView(R.layout.activity_recipe);
 
-        vm = ViewModelProviders.of(this).get(RecipeViewModel.class);
+        RecipeViewModel vm = ViewModelProviders.of(this).get(RecipeViewModel.class);
         vm.recipe = getIntent().getParcelableExtra(KEY_RECIPE);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_keyboard_backspace);
         toolbar.setTitle(vm.recipe.getName());
         setSupportActionBar(toolbar);
@@ -69,10 +64,6 @@ public class RecipeActivity extends AppCompatActivity implements MasterRecipeFra
         Intent intent = new Intent(ctx, RecipeActivity.class);
         intent.putExtra(KEY_RECIPE, recipe);
         return intent;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
     }
 
     @Override

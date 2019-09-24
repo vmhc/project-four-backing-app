@@ -11,7 +11,6 @@ import com.android.master.activity.MainActivity;
 import com.android.master.models.Ingredient;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Implementation of App Widget functionality.

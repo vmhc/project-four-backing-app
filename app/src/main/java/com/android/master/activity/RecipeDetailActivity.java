@@ -2,7 +2,6 @@ package com.android.master.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -18,7 +17,7 @@ import com.android.master.models.Step;
 
 import java.util.ArrayList;
 
-public class RecipeDetailActivity extends AppCompatActivity implements DetailsRecipeFragment.OnFragmentInteractionListener {
+public class RecipeDetailActivity extends AppCompatActivity {
 
     public static final String KEY_INGREDIENTS = "KEY_INGREDIENTS";
     public static final String KEY_STEP = "KEY_STEP";
@@ -70,11 +69,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements DetailsRe
         Intent intent = new Intent(ctx, RecipeDetailActivity.class);
         intent.putExtra(KEY_STEP, step);
         return intent;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override

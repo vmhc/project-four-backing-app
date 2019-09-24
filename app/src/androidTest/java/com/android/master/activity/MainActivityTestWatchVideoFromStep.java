@@ -28,7 +28,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
@@ -45,7 +44,7 @@ public class MainActivityTestWatchVideoFromStep {
     public void registerIdlingResource() {
         ActivityScenario activityScenario = ActivityScenario.launch(MainActivity.class);
         activityScenario.onActivity((ActivityScenario.ActivityAction<MainActivity>) activity -> {
-            mIdlingResource2 =  activity.getIdlingResource();
+            mIdlingResource2 = activity.getIdlingResource();
             IdlingRegistry.getInstance().register(mIdlingResource2);
         });
     }
@@ -73,7 +72,7 @@ public class MainActivityTestWatchVideoFromStep {
         cardView2.perform(click());
 
         ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.exo_play), withContentDescription("Reproducir"),
+                allOf(withId(R.id.exo_play),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.LinearLayout")),

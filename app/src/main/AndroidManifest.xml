@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.master">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,7 +36,5 @@
                 android:resource="@xml/recipe_app_ingredients_widget_info" />
         </receiver>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

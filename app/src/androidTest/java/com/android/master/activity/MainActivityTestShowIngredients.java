@@ -28,7 +28,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
@@ -43,7 +42,7 @@ public class MainActivityTestShowIngredients {
     public void registerIdlingResource() {
         ActivityScenario activityScenario = ActivityScenario.launch(MainActivity.class);
         activityScenario.onActivity((ActivityScenario.ActivityAction<MainActivity>) activity -> {
-            mIdlingResource =  activity.getIdlingResource();
+            mIdlingResource = activity.getIdlingResource();
             IdlingRegistry.getInstance().register(mIdlingResource);
         });
     }
@@ -61,7 +60,7 @@ public class MainActivityTestShowIngredients {
         cardView.perform(click());
 
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btn_ingredients), withText("9 Ingredients"),
+                allOf(withId(R.id.btn_ingredients),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.master_recipe),

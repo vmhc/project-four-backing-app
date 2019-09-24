@@ -24,10 +24,9 @@ import butterknife.ButterKnife;
 public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Ingredient> ingredients = new ArrayList<>();
-    private Context ctx;
 
     public IngredientAdapter(Context ctx, ArrayList<Ingredient> ingredients) {
-        this.ctx = ctx;
+
         this.ingredients.addAll(ingredients);
         notifyDataSetChanged();
     }
@@ -67,12 +66,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @BindView(R.id.cv_ingredient)
         CardView cv_ingredient;
 
-        public IngredientViewHolder(@NonNull View itemView) {
+        IngredientViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void setData(Ingredient ingredient) {
+        void setData(Ingredient ingredient) {
             et_measure.setText(ingredient.getMeasure());
             et_ingredient.setText(ingredient.getIngredient());
             et_quanty.setText(ingredient.getQuantity().toString());

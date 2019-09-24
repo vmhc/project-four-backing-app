@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.IdlingResource;
 
-import com.android.master.IdlingResource.SimpleIdlingResource;
+import com.android.master.idlingresource.SimpleIdlingResource;
 import com.android.master.R;
 import com.android.master.adapter.RecipeAdapter;
 import com.android.master.interfaces.IMain;
@@ -53,7 +53,10 @@ public class MainActivity extends AppCompatActivity implements IMain {
         //TODO detectar cuando es una tableta
         vm = ViewModelProviders.of(this).get(MainViewModel.class);
         vm.iMain = this;
-        mIdlingResource.setIdleState(false);
+
+        if (mIdlingResource != null) {
+            mIdlingResource.setIdleState(false);
+        }
         vm.obtainRecipe();
        // rv_recipe.setLayoutManager(new LinearLayoutManager(this));
         rv_recipe.setHasFixedSize(true);
@@ -74,7 +77,9 @@ public class MainActivity extends AppCompatActivity implements IMain {
     @Override
     public void setRecipe(ArrayList<Recipe> recipes) {
         recipeAdapter.setRecipe(recipes);
-        mIdlingResource.setIdleState(true);
+        if (mIdlingResource != null) {
+            mIdlingResource.setIdleState(true);
+        }
     }
 
     @Override
